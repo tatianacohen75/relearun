@@ -1,11 +1,6 @@
-``` 
-          _            ____
- _ __ ___| | ___  __ _|  _ \ _   _ _ __
-| '__/ _ \ |/ _ \/ _` | |_) | | | | '_ \
-| | |  __/ |  __/ (_| |  _ <| |_| | | | |  
-|_|  \___|_|\___|\__,_|_| \_\\__,_|_| |_| (_)
+[relearun](https://raw.githubusercontent.com/bfoujols/relearun/main/public/assets/img/relearun-logo.png)
 
-```
+Projet pour la gestion des versions 
 
 ### Author 
 - Benoit Foujols 
