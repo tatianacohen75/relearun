@@ -1,6 +1,15 @@
-[relearun](https://raw.githubusercontent.com/bfoujols/relearun/main/public/assets/img/relearun-logo.png)
+<div align="center" width="100%">
+    <img src="./public/assets/img/relearun-logo.svg" width="350" alt="" />
+</div>
 
-Projet pour la gestion des versions 
+ReleaRun s'occupe de la gestion des versions applicatives. L'objectif est d'avoir une vision globale des versions deployées sur les envirronements.
+
+## ⭐ Features
+* Push version
+* Gestion des versions
+* Authentification token
+* Addons chrome
+
 
 ### Author 
 - Benoit Foujols 
