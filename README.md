@@ -12,11 +12,14 @@ ReleaRun s'occupe de la gestion des versions applicatives. L'objectif est d'avoi
 
 ## 🔧 Installation
 ```
-# installation fichier d'envirronnement
+# 1 - installation fichier d'envirronnement
 cp _.env.exempl .env
-# installation des packages
+# 2 - installation des packages
 composer install
-# installation de la base de donnée
+# 3 - installation de la base de donnée
+# 3.1 Création des fichiers SQL (compatible sqlite/Mysql/Mariadb)
+php bin/console make:migration
+# 3.2 Import de la structure SQL
 php bin/console doctrine:migration:migrate
 ```
 
