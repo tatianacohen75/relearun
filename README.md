@@ -7,7 +7,7 @@ ReleaRun s'occupe de la gestion des versions applicatives. L'objectif est d'avoi
 ## ⭐ Features
 * Push version
 * Gestion des versions
-* Authentification token
+* Authentification token 
 * Addons chrome
 
 ## 🔧 Installation
@@ -24,8 +24,8 @@ php bin/console doctrine:migration:migrate
 ```
 
 ### Author 
-- Benoit Foujols 
-- Noa Sillam 
-- Athittyan Balagowriyan
+* Benoit Foujols
+* Noa Sillam 
+* Athittyan Balagowriyan
 
 ### MIT License
