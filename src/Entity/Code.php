@@ -7,23 +7,44 @@ use App\Repository\CodeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CodeRepository::class)]
-#[ApiResource]
+#[ApiResource (
+//     collectionOperations: [
+//         'get' => ['method' => 'get'],
+//     ],
+//     itemOperations: [
+//     'get'=> ['method' => 'get'],
+// ],
+            normalizationContext:['groups' => ['read:collection', 'read:item', 'read:Post']],
+            denormalizationContext:['groups' => ['put:Post']],
+            itemOperations:['put', 
+                            'delete', 
+                            'get'
+                            // => ['normalization_context'=> ['groups'=> ['read:collection', 'read:item', 'read:Post'] ]] 
+                            ]
+
+)
+]
 class Code
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups('read:item','read:Post', 'read:collection')]
     private $id;
 
     #[ORM\Column(type: 'string', length: 50)]
+    
+    #[Groups('put:Post','read:Post', 'read:item', 'read:collection')]
     private $name;
 
     #[ORM\Column(type: 'integer')]
     private $inheritance;
 
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    #[Groups('read:item', 'read:collection')]
     private $type;
 
     #[ORM\OneToMany(mappedBy: 'code', targetEntity: Version::class, orphanRemoval: true)]
