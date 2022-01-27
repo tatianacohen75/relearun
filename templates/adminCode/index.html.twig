@@ -1,0 +1,53 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Gérer les Codes{% endblock %}
+
+{% block body %}
+    <main>
+        <h1 class="text-5xl font-bold text-gray-500">Les Codes</h1>
+        <br>
+        <br>
+        <br>
+        
+        
+        <table class="border-collapse border border-slate-500..." style="margin-left:50%" >
+            <thead>
+                <tr>
+                    <th class="border border-slate-600..." width="500px" height="50px">
+                        Nom
+                    </th>
+                    <th class="border border-slate-600..." width="100px" >
+                        Inheritance
+                    </th>
+                    <th class="border border-slate-600..." width="100px">
+                        Type
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for code in codes %}
+                
+                <tr>
+                    <td class="border border-slate-700... " width="300px">
+                        {{code.name}}
+                    </td>
+                    <td class="border border-slate-700...">
+                        {{code.inheritance}}
+                    </td>
+                    <td class="border border-slate-700..." width="200px">
+                        {{code.type}}
+                    </td>
+                    <td class="border border-slate-700..."> 
+                        <a href="{{path('adminCode.edit', {id: code.id})}}"  class="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">Editer</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <!-- Content -->
+    </main>
+    <script src="https://cdn.tailwindcss.com"></script>
+{% endblock %}
+
+
+
