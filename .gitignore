@@ -10,6 +10,9 @@
 # Cache
 /var/cache/*
 
+# DB sql
+/var/relearundata.db
+
 # Logs
 /var/log/*
 !var/log/.gitkeep
