@@ -32,7 +32,27 @@ class AdminCodeController extends AbstractController
         return $this->render('adminCode/index.html.twig', compact('codes'));
     }
 
-    #[Route('/adminCode/{id}', name: 'adminCode.edit')]
+    #[Route('/adminCode/create', name: 'adminCode.new')]
+    public function new(Request $request): Response
+    {
+        $codes = new Code();
+        $form = $this->createForm(CodeType::class, $codes);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+                $this -> em -> persist($codes);
+                $this -> em -> flush();
+                return $this->redirectToRoute('adminCode.index');
+        }
+        return $this->render('adminCode/new.html.twig',  
+        [
+            'codes' => $codes,
+            'form' => $form->createView()
+        ]
+        );
+    }
+
+    #[Route('/adminCode/{id}', name: 'adminCode.edit', methods:'GET|POST')]
     public function edit(Code $codes, Request $request): Response
     {
        $form = $this->createForm(CodeType::class, $codes);
@@ -49,6 +69,19 @@ class AdminCodeController extends AbstractController
             'form' => $form->createView()
         ]
         );
+    }
+    #[Route('/adminCode/{id}', name: 'adminCode.delete', methods:'DELET')]
+    public function delete(Code $codes, Request $request):Response
+    {
+        if($this-> isCsrfTokenValid('delete'.$codes->getId(), $request -> get('_token')))
+        {
+                
+                $this -> em -> remove($codes);
+                 $this -> em -> flush();
+                
+        }
+        
+        return $this->redirectToRoute('adminCode.index');
     }
 }
 

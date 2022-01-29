@@ -1,9 +1,9 @@
 {% extends 'admin.html.twig' %}
 
-{% block title %}Editer le Code{% endblock %}
+{% block title %}Editer le Env{% endblock %}
 
 {% block body %}
-    <h1 class="text-5xl font-bold text-gray-500">Editer le Code</h1>
+    <h1 class="text-5xl font-bold text-gray-500">Editer le Env</h1>
      <br>
      <br>
      <br>
@@ -12,8 +12,7 @@
     {{form_start(form)}}
         <div class="px-10 py-10" style="padding-top:30%; margin-left:50%;">
             <div class="px-10 py-10" height:"20%">{{form_row (form.name)}} </div>
-            <div class="px-10 py-10" height:"20%">{{form_row (form.inheritance)}} </div>
-            <div class="px-10 py-10" height:"20%">{{form_row (form.type)}} </div>
+            <div class="px-10 py-10" height:"20%">{{form_row (form.code)}} </div>
         </div>
     {{form_rest(form)}}
      <button class="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2" style=" margin-left:75%;">Sauvegarder</button>

@@ -16,14 +16,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 //     ],
 //     itemOperations: [
 //     'get'=> ['method' => 'get'],
-// ],
-            normalizationContext:['groups' => ['read:collection', 'read:item', 'read:Post']],
-            denormalizationContext:['groups' => ['put:Post']],
-            itemOperations:['put', 
-                            'delete', 
-                            'get'
-                            // => ['normalization_context'=> ['groups'=> ['read:collection', 'read:item', 'read:Post'] ]] 
-                            ]
+// // ],
+//             normalizationContext:['groups' => ['read:collection', 'read:item', 'read:Post']],
+//             denormalizationContext:['groups' => ['put:Post']],
+//             itemOperations:['put', 
+//                             'delete', 
+//                             'get'
+//                             // => ['normalization_context'=> ['groups'=> ['read:collection', 'read:item', 'read:Post'] ]] 
+//                             ]
 
 )
 ]
@@ -32,23 +32,26 @@ class Code
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Groups('read:item','read:Post', 'read:collection')]
+    //#[Groups('read:item','read:Post', 'read:collection')]
     private $id;
 
     #[ORM\Column(type: 'string', length: 50)]
     
-    #[Groups('put:Post','read:Post', 'read:item', 'read:collection')]
+   // #[Groups('put:Post','read:Post', 'read:item', 'read:collection')]
     private $name;
 
     #[ORM\Column(type: 'integer')]
     private $inheritance;
 
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
-    #[Groups('read:item', 'read:collection')]
+   // #[Groups('read:item', 'read:collection')]
     private $type;
 
     #[ORM\OneToMany(mappedBy: 'code', targetEntity: Version::class, orphanRemoval: true)]
     private $versions;
+
+    
+
 
     public function __construct()
     {
@@ -125,4 +128,8 @@ class Code
 
         return $this;
     }
+    public function __toString()
+{
+    return (string) $this->getId();
+}
 }
