@@ -15,13 +15,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 //     itemOperations: [
 //     'get'=> ['method' => 'get'],
 // ],
-        normalizationContext:['groups' => ['read:collection', 'read:item', 'read:Post']],
-        denormalizationContext:['groups' => ['put:Post']],
-        itemOperations:['put' , 
-                        'delete', 
-                        'get' 
-                        //=> ['normalization_context'=> ['groups'=> ['read:collection', 'read:item', 'read:Post'] ]] 
-                        ]
+        // normalizationContext:['groups' => ['read:collection', 'read:item', 'read:Post']],
+        // denormalizationContext:['groups' => ['put:Post']],
+        // itemOperations:['put' , 
+        //                 'delete', 
+        //                 'get' 
+        //                 //=> ['normalization_context'=> ['groups'=> ['read:collection', 'read:item', 'read:Post'] ]] 
+        //                 ]
 
  )
 ]
@@ -33,11 +33,11 @@ class Version
     private $id;
 
     #[ORM\Column(type: 'string', length: 50)]
-    #[Groups('put:Post', 'read:item')]
+   // #[Groups('put:Post', 'read:item')]
     private $name;
 
     #[ORM\Column(type: 'datetime')]
-    #[Groups('read:item')]
+   // #[Groups('read:item')]
     private $createDate;
 
     #[ORM\ManyToOne(targetEntity: Code::class, inversedBy: 'versions')]
@@ -90,4 +90,11 @@ class Version
 
         return $this;
     }
+
+    public function __toString()
+    {
+       // return (string) $this->getCreateDate();
+        return (string) $this->getId();
+    }
+    
 }

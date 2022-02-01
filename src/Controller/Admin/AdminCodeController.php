@@ -80,6 +80,7 @@ class AdminCodeController extends AbstractController
                  $this -> em -> flush();
                 
         }
+            throw $this->createNotFoundException("Echec de Suppression");
         
         return $this->redirectToRoute('adminCode.index');
     }

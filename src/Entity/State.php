@@ -8,37 +8,18 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: StateRepository::class)]
-#[ApiResource (
-//     collectionOperations: [
-//         'get' => ['method' => 'get'],
-//     ],
-//     itemOperations: [
-//     'get'=> ['method' => 'get'],
-// ],
-            normalizationContext:['groups' => ['read:collection',  'read:item', 'read:Post']],
-            denormalizationContext:['groups' => ['put:Post']],
-            itemOperations:['put', 
-                            'delete', 
-                            'get'
-                           // => ['normalization_context'=> ['groups'=> ['read:collection', 'read:item', 'read:Post'] ]] 
-                           ]
-
-)
-]
+#[ApiResource ()]
 class State
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Groups('read:item','read:Post', 'read:collection')]
     private $id;
 
     #[ORM\Column(type: 'datetime')]
-    #[Groups('read:item')]
     private $createdDate;
 
     #[ORM\Column(type: 'string', length: 50)]
-    #[Groups('read:collection')]
     private $name;
 
     #[ORM\ManyToOne(targetEntity: Env::class)]
@@ -106,5 +87,9 @@ class State
         $this->version = $version;
 
         return $this;
+    }
+    public function __toString()
+    {
+        return (string) $this->getCreatedDate();
     }
 }
