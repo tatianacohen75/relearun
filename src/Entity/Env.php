@@ -5,6 +5,8 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\EnvRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: EnvRepository::class)]
@@ -36,14 +38,23 @@ class Env
     #[ORM\Column(type: 'string', length: 50)]
   //  #[Groups('put:Post', 'read:item')]
     private $name;
+   
 
-    #[ORM\ManyToOne(targetEntity: Code::class)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Code::class, inversedBy: 'envs')]
+    #[ORM\JoinColumn(nullable: false, onDelete:"CASCADE")]
    // #[Groups('read:item')]
     private $code;
 
-   
+    #[ORM\OneToMany(mappedBy: 'env', targetEntity: State::class, orphanRemoval:true)]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+    private $states;
 
+
+
+    public function __construct()
+    {
+        $this->states = new ArrayCollection();
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +80,37 @@ class Env
     public function setCode(?Code $code): self
     {
         $this->code = $code;
+
+        return $this;
+    }
+
+
+       /**
+     * @return Collection|State[]
+     */
+    public function getStates(): Collection
+    {
+        return $this->states;
+    }
+
+    public function addState(State $state): self
+    {
+        if (!$this->states->contains($state)) {
+            $this->states[] = $state;
+            $state->setEnv($this);
+        }
+
+        return $this;
+    }
+
+    public function removeState(State $state): self
+    {
+        if ($this->states->removeElement($state)) {
+            // set the owning side to null (unless already changed)
+            if ($state->getEnv() === $this) {
+                $state->setEnv(null);
+            }
+        }
 
         return $this;
     }

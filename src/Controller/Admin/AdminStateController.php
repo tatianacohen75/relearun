@@ -83,9 +83,9 @@ class AdminStateController extends AbstractController
                 
                 $this -> em -> remove($states);
                  $this -> em -> flush();
-                
+                // throw $this->createNotFoundException("Echec de Suppression");
         }
-            throw $this->createNotFoundException("Echec de Suppression");
+          //  throw $this->createNotFoundException("Echec de Suppression");
         
         return $this->redirectToRoute('adminState.index');
     }

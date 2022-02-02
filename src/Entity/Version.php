@@ -5,6 +5,8 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\VersionRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: VersionRepository::class)]
@@ -41,8 +43,13 @@ class Version
     private $createDate;
 
     #[ORM\ManyToOne(targetEntity: Code::class, inversedBy: 'versions')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete:"CASCADE")]
     private $code;
+
+    #[ORM\OneToMany(mappedBy: 'version', targetEntity: State::class, orphanRemoval:true)]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+    private $states;
+
 
 
     public function __construct()
@@ -87,6 +94,35 @@ class Version
     public function setCode(?Code $code): self
     {
         $this->code = $code;
+
+        return $this;
+    }
+        /**
+     * @return Collection|State[]
+     */
+    public function getStates(): Collection
+    {
+        return $this->states;
+    }
+
+    public function addState(State $state): self
+    {
+        if (!$this->states->contains($state)) {
+            $this->states[] = $state;
+            $state->setVersion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeState(State $state): self
+    {
+        if ($this->states->removeElement($state)) {
+            // set the owning side to null (unless already changed)
+            if ($state->getVersion() === $this) {
+                $state->setVersion(null);
+            }
+        }
 
         return $this;
     }

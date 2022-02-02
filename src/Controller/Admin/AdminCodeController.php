@@ -74,13 +74,13 @@ class AdminCodeController extends AbstractController
     public function delete(Code $codes, Request $request):Response
     {
         if($this-> isCsrfTokenValid('delete'.$codes->getId(), $request -> get('_token')))
-        {
-                
+        {       
                 $this -> em -> remove($codes);
                  $this -> em -> flush();
+                // throw $this->createNotFoundException("Echec de Suppression");
                 
         }
-            throw $this->createNotFoundException("Echec de Suppression");
+           
         
         return $this->redirectToRoute('adminCode.index');
     }

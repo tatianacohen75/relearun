@@ -79,9 +79,10 @@ class AdminVersionController extends AbstractController
                 
                 $this -> em -> remove($versions);
                  $this -> em -> flush();
+                // throw $this->createNotFoundException("Echec de Suppression");
                 
         }
-            throw $this->createNotFoundException("Echec de Suppression");
+           // throw $this->createNotFoundException("Echec de Suppression");
         
            
         

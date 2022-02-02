@@ -47,8 +47,13 @@ class Code
    // #[Groups('read:item', 'read:collection')]
     private $type;
 
-    #[ORM\OneToMany(mappedBy: 'code', targetEntity: Version::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'code', targetEntity: Version::class, orphanRemoval:true)]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     private $versions;
+
+    #[ORM\OneToMany(mappedBy: 'code', targetEntity: Env::class, orphanRemoval:true)]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+    private $envs;
 
     
 
@@ -56,6 +61,7 @@ class Code
     public function __construct()
     {
         $this->versions = new ArrayCollection();
+        $this->envs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -123,6 +129,35 @@ class Code
             // set the owning side to null (unless already changed)
             if ($version->getCode() === $this) {
                 $version->setCode(null);
+            }
+        }
+
+        return $this;
+    }
+     /**
+     * @return Collection|Env[]
+     */
+    public function getEnvs(): Collection
+    {
+        return $this->envs;
+    }
+
+    public function addEnv(Env $env): self
+    {
+        if (!$this->envs->contains($env)) {
+            $this->envs[] = $env;
+            $env->setCode($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEnv(Env $env): self
+    {
+        if ($this->envs->removeElement($env)) {
+            // set the owning side to null (unless already changed)
+            if ($env->getCode() === $this) {
+                $env->setCode(null);
             }
         }
 

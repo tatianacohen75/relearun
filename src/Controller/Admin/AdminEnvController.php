@@ -77,9 +77,10 @@ class AdminEnvController extends AbstractController
                 
                 $this -> em -> remove($envs);
                  $this -> em -> flush();
+               //  throw $this->createNotFoundException("Echec de Suppression");
                 
         }
-         throw $this->createNotFoundException("Echec de Suppression.");
+        // throw $this->createNotFoundException("Echec de Suppression.");
         
         return $this->redirectToRoute('adminEnv.index');
     }
