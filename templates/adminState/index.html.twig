@@ -51,8 +51,7 @@
                          hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">Editer</a>
 
 
-                        <form method="post" action='{{path('adminState.delete', {id: state.id})}}' style="display: inline-block;" onsubmit="return 
-                        confirm('Etes-vous vraiment sure de vouloir supprimer cette state?')">
+                        <form method="post" action='{{path('adminState.delete', {id: state.id})}}' style="display: inline-block;" onsubmit="return confirm('Etes-vous vraiment sure de vouloir supprimer cette state?')">
                             <input type='hidden' name='_method' value='DELET'/>
                             <input type='hidden' name='_token' value='{{csrf_token('delete' ~ state.id)}}'/>
                             <button class="px-4 py-1 text-sm text-red-600 font-semibold rounded-full border border-red-200 hover:text-white hover:bg-red-600 
