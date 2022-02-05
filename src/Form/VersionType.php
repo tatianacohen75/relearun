@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class VersionType extends AbstractType
 {
@@ -15,7 +16,7 @@ class VersionType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('createDate')
+            ->add('createDate', DateTimeType::class, ['attr' => ['class'=>'form-control js-datepicker'], 'widget' => 'single_text', 'html5' => False, 'format' => 'yyyy-MM-dd',])
             ->add('code', EntityType::class, ['class'=>Code::class, 'choice_label' =>'name'])
         ;
     }
